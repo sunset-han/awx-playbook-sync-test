@@ -1,5 +1,12 @@
 ---
-- name: Display all variables/facts known for a host
-  ansible.builtin.debug:
-    var: hostvars[inventory_hostname]
-    verbosity: 4
+- hosts: all
+  gather_facts: no
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  
+  tasks:
+  - name: Display all variables/facts known for a host
+    ansible.builtin.debug:
+      var: hostvars[inventory_hostname]
+      verbosity: 4
