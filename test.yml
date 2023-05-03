@@ -7,4 +7,4 @@
   
   tasks:
   - name: Create test file in the home directory
-    cmd: echo "This is for test!" > ~/test.txt
+    command: echo "This is for test!" > ~/test.txt
