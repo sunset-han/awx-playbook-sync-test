@@ -7,4 +7,4 @@
   
   tasks:
   - name: Create test file in the home directory
-    command: echo "This is for test!" > ~/test.txt
+    command: echo "{{ input_text }}" > ~/test.txt
