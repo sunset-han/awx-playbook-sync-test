@@ -7,4 +7,4 @@
   
   tasks:
   - name: Create test file in the ubuntu home directory
-    command: echo "{{ input_text }}" > /home/ubuntu/test.txt
+    shell: echo "{{ input_text }}" > /home/ubuntu/test.txt
