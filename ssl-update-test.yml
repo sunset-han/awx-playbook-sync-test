@@ -64,4 +64,4 @@
         }
 
   - name: Reload nginx
-    shell: nginx reload
+    shell: service nginx reload
