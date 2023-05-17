@@ -9,7 +9,15 @@
   tasks:
     - name: Extract target domain names
       shell: echo "{{ ssl_cert_content }}" | openssl x509 -text -noout | grep DNS | tr -d ' ' | tr -d 'DNS:' | sed -e "s/,/ /g"
-      register: domain_names
+      register: ssl_shell_output
       
-    - name: Print target domain list
-      debug: msg="{{ domain_names }}"
+    - name: Set variables
+      set_fact: 
+        nginx_dir: "/etc/nginx"
+        domain_names: "{{ ssl_shell_output.stdout | split }}"
+        domain_name: "{{ domain_names[0] }}"
+        ssl_file_dir: "{{ nginx_dir }}/ssl/{{ domain_name }}"
+        
+    - name: Print variable values
+      debug:
+        msg: "domain_name = {{ domain_name }} / ssl_file_dir: {{ ssl_file_dir }}"
