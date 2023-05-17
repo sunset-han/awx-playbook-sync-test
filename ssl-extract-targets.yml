@@ -11,12 +11,15 @@
       shell: echo "{{ ssl_cert_content }}" | openssl x509 -text -noout | grep DNS | tr -d ' ' | tr -d 'DNS:' | sed -e "s/,/ /g"
       register: ssl_shell_output
       
-    - name: Set variables
+    - name: Set base variables
       set_fact: 
         nginx_dir: "/etc/nginx"
         domain_names: "{{ ssl_shell_output.stdout | split }}"
+        
+    - name: Set domain_name and SSL file dir
+      set_fact:
         domain_name: "{{ domain_names[0] }}"
-        ssl_file_dir: "{{ nginx_dir }}/ssl/{{ domain_name }}"
+        ssl_file_dir: "{{ nginx_dir }}/ssl/{{ domain_names[0]}}"
         
     - name: Print variable values
       debug:
