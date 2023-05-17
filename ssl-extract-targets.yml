@@ -1,0 +1,14 @@
+---
+- hosts: all
+  gather_facts: no
+  #remote_user: ubuntu
+  become: yes
+  become_user: root
+  
+  tasks:
+    - name: Extract target domain names
+      shell: echo "{{ ssl_cert_content }}" | openssl x509 -text -noout | grep DNS | tr -d ' ' | tr -d 'DNS:' | sed -e "s/,/ /g"
+      register: domain_names
+      
+    - name: Print target domain list
+      debug: msg="{{ domain_names }}"
