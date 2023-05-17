@@ -4,6 +4,7 @@
   #remote_user: ubuntu
   become: yes
   become_user: root
+  connection: local
   
   tasks:
     - name: Extract target domain names
